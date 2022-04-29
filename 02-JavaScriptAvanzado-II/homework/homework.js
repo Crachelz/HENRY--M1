@@ -7,13 +7,20 @@ function counter() {
   // ejemplo: const newCounter = counter();
   // newCounter(); // 1
   // newCounter(); // 2
+  
+	let count = 0
+  return function x(){
+    count++
+    return count
+  }
 }
 
 function cacheFunction(cb) {
   // Usa closures para crear un caché para la función cb.
-  // la función que retornas debe aceptar un solo argumento e invocar a cb con ese argumento
+  // la función que retornas debe aceptar un solo argumento e invocar a cb con ese argumento --> cb(arg)
   // cuando la función que hayas retornado es invocada de nuevo, debería guardar el argumento y el resultado de la invocacion
-  // cuando la función que retornaste sea invocada de nuevo con un argumento con el cual se había invocado anterioremente, no deberia invocar de nuevo a cb
+  // cuando la función que retornaste sea invocada de nuevo con un argumento con el cual se había invocado anterioremente, 
+  //no deberia invocar de nuevo a cb
   // debería retornar el resultado (previamente guardado)
   // Ejemplo:
   // cb -> function(x) { return x * x; }
@@ -21,6 +28,15 @@ function cacheFunction(cb) {
   // si la invocas de nuevo con 5, deberia retornar 25 (guardado previament en el cache)
   // Tips, usá un objeto donde cada propiedad sea un argumento, y el valor el resultado.
   // usá hasOwnProperty!
+  var cache = {}
+  return function (arg){
+    if(cache.hasOwnProperty(arg)){
+      return cache[arg]
+    } else {
+      cache[arg] = cb(arg)
+      return cache[arg]
+    }
+  }
 }
 
 // Bind
@@ -38,11 +54,14 @@ var alumno = {
 function getNombre(){
   return this.nombre;
 }
- // Escribir código, sin modificar lo que ya se encuentra escrito arriba, para poder llamar al método getNombre para obtener primero el nombre del instructor y luego para obtener el nombre del alumno.
+ // Escribir código, sin modificar lo que ya se encuentra escrito arriba, para poder llamar al método 
+ //getNombre para obtener primero el nombre del instructor y luego para obtener el nombre del alumno.
 // Modificar los undefined por el código correspondiente en cada caso
 // Pista, tenes que bindear el this!
-let getNombreInstructor = undefined;
-let getNombreAlumno = undefined;
+
+
+let getNombreInstructor = getNombre.bind(instructor);
+let getNombreAlumno = getNombre.bind(alumno);;
 
 
 /*Guardar en las siguientes tres variables una función que devuelva una cadena utilizando la función "crearCadena"
@@ -61,11 +80,12 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena){
 // Modificar los undefined por el código correspondiente en cada caso
 // Pista, tenes que usar bind para "bindear" algunos parámetros de la función crearCadena.
 
-let textoAsteriscos = undefined;
+let textoAsteriscos = crearCadena.bind(this, '*', '*');
 
-let textoGuiones = undefined;
+let textoGuiones =  crearCadena.bind(this, '-', '-');
 
-let textoUnderscore = undefined;
+let textoUnderscore =  crearCadena.bind(this, '_', '_');
+
 
 
 
