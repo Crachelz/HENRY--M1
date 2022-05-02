@@ -52,7 +52,7 @@ describe('Una linked list', function() {
     expect(linkedList.head.next.next).toBe(null);
   });
 
-  it('remove deberia retornar null si la lista esta vacia', function() {
+  it('remove deberia retornar null si la lista esta vacia',function() {
     expect(linkedList.remove()).toBeFalsy();
   });
 
